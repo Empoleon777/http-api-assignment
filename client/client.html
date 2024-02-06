@@ -1,13 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>Our simple HTTP server</title>
   <link rel="stylesheet" type="text/css" href="/style.css">
-  
-  <script>
 
+  <script>
+    const init = () => {
+      const pageSelector = document.querySelector("#page");
+      const fileTypeSelector = document.querySelector("#type");
+      const sendButton = document.querySelector("#send");
+      const content = document.querySelector("#content");
+
+      const success = () => sendFetch('/success');
+      const badRequest = () => sendFetch('/badRequest');
+      const unauthorized = () => sendFetch('/unauthorized');
+      const forbidden = () => sendFetch('/forbidden');
+      const internal = () => sendFetch('/internal');
+      const notImplemented = () => sendFetch('/notImplemented');
+      const notFound = () => sendFetch('/notFound');
+
+      sendButton.onclick = () => {
+        switch (pageSelector.value) {
+          case "Success":
+            success();
+            break;
+          case "Bad Request":
+            badRequest();
+            break;
+          case "Unauthorized":
+            unauthorized();
+            break;
+          case "Forbidden":
+            forbidden();
+            break;
+          case "Internal":
+            internal();
+            break;
+          case "Not Implemented":
+            notImplemented();
+            break;
+          case "Not Found":
+            notFound();
+            break;
+        }
+      }
+    }
+
+    const sendFetch = async (url) => {
+      let response = await fetch(url);
+      handleResponse(response);
+    };
+
+    const handleResponse = async (response) => {
+      //Grab the content section from the page
+      const content = document.getElementById('content');
+
+      switch (response.status) {
+        case 200:
+          content.innerHTML = `<b>Success</b>`;
+          content.innerHTML += `<p>Message: This is a successful response.</p>`;
+          break;
+        case 400:
+          content.innerHTML = `<b>Bad Request</b>`;
+          content.innerHTML += `<p>Message: Missing valid query parameter set to true.</p>`;
+          break;
+        case 401:
+          content.innerHTML = `<b>Unauthorized</b>`;
+          content.innerHTML += `<p>Message: Missing loggedIn query parameter set to yes.</p>`;
+          break;
+        case 403:
+          content.innerHTML = `<b>Forbidden</sb>`;
+          content.innerHTML += `<p>Message: You do not have access to this content.</p>`;
+          break;
+        case 500:
+          content.innerHTML = `<b>Internal Server Error</b>`;
+          content.innerHTML += `<p>Message: Internal Server Error. Something went wrong.</p>`;
+          break;
+        case 501:
+          content.innerHTML = `<b>Not Implemented</b>`;
+          content.innerHTML += `<p>Message: A get request for this page has not been implemented yet. Check again later for updated content.</p>`;
+          break;
+        case 404:
+          content.innerHTML = `<b>Not Found</b>`;
+          content.innerHTML += `<p>Message: The page you are looking for was not found.</p>`;
+          break;
+        default:
+          break;
+      }
+
+      let resObj = await response.json();
+      content.innerHTML += `<p>${resObj.message}</p>`;
+    };
   </script>
 </head>
+
 <body>
   <section id="top">
     <h3>Status Code Tests</h3>
@@ -29,4 +116,5 @@
   <section id="content">
   </section>
 </body>
+
 </html>
