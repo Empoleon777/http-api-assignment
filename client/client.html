@@ -20,31 +20,54 @@
       const notImplemented = () => sendFetch('/notImplemented');
       const notFound = () => sendFetch('/notFound');
 
-      sendButton.onclick = () => {
+      fileTypeSelector.addEventListener("change", changeFileType);
+
+      sendButton.addEventListener("click", () => {
         switch (pageSelector.value) {
-          case "Success":
+          case "/success":
             success();
             break;
-          case "Bad Request":
+          case "/badRequest":
             badRequest();
             break;
-          case "Unauthorized":
+          case "/unauthorized":
             unauthorized();
             break;
-          case "Forbidden":
+          case "/forbidden":
             forbidden();
             break;
-          case "Internal":
+          case "/internal":
             internal();
             break;
-          case "Not Implemented":
+          case "/notImplemented":
             notImplemented();
             break;
-          case "Not Found":
+          case "/notFound":
             notFound();
             break;
         }
-      }
+      });
+    }
+
+    window.onload = init;
+
+    const changeFileType = (e) => {
+      e.preventDefault();
+      sendPost(fileTypeSelector.value);
+      return false;
+    }
+
+    const sendPost = async (fileType) => {
+      const headers = {
+        'Accept': fileType
+      };
+
+      let response = await fetch('/', {
+        method: 'POST',
+        headers: headers
+      });
+
+      handleResponse(response);
     }
 
     const sendFetch = async (url) => {
@@ -53,9 +76,6 @@
     };
 
     const handleResponse = async (response) => {
-      //Grab the content section from the page
-      const content = document.getElementById('content');
-
       switch (response.status) {
         case 200:
           content.innerHTML = `<b>Success</b>`;

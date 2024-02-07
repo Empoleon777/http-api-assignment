@@ -10,18 +10,18 @@ const port = process.env.PORT || process.env.NODE_PORT || 3000;
 const urlStruct = {
     '/': htmlHandler.getIndex,
     '/style.css': htmlHandler.getCSS,
-    '/success': jsonHandler.success,
-    '/badRequest': jsonHandler.badRequest,
-    '/unauthorized': jsonHandler.unauthorized,
-    '/forbidden': jsonHandler.forbidden,
-    '/internal': jsonHandler.internal,
-    '/notImplemented': jsonHandler.notImplemented,
-    notFound: jsonHandler.notFound
+    '/success': { 'application/json': jsonHandler.success, 'text/xml': xmlHandler.success },
+    '/badRequest': { 'application/json': jsonHandler.badRequest, 'text/xml': xmlHandler.badRequest },
+    '/unauthorized': { 'application/json': jsonHandler.unauthorized, 'text/xml': xmlHandler.unauthorized },
+    '/forbidden': { 'application/json': jsonHandler.forbidden, 'text/xml': xmlHandler.forbidden },
+    '/internal': { 'application/json': jsonHandler.internal, 'text/xml': xmlHandler.internal },
+    '/notImplemented': { 'application/json': jsonHandler.notImplemented, 'text/xml': xmlHandler.notImplemented },
+    notFound: { 'application/json': jsonHandler.notFound, 'text/xml': xmlHandler.notFound }
 };
 
 const onRequest = (request, response) => {
     const parsedURL = url.parse(request.url);
-    const params = query.parse(parsedUrl.query);
+    const params = query.parse(parsedURL.query);
 
     if (urlStruct[parsedURL.pathname]) {
         urlStruct[parsedURL.pathname](request, response, params);

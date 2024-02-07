@@ -9,6 +9,7 @@ const success = (request, response) => {
     responseXML += `<message>This is a successful response.</message>`;
     responseXML += `</response>`;
 
+    console.log(responseXML);
     respondXML(request, response, 200, responseXML);
 };
 
@@ -20,12 +21,14 @@ const badRequest = (request, response, params) => {
         responseXML += `<id>Bad Request</id>`;
         responseXML += `</response>`;
 
+        console.log(responseXML);
         return respondXML(request, response, 400, responseXML);
     }
     else {
         responseXML += `<message>This request has the required parameters.</message>`;
         responseXML += `</response>`;
 
+        console.log(responseXML);
         return respondXML(request, response, 200, responseXML);
     }
 };
@@ -38,11 +41,14 @@ const unauthorized = (request, response) => {
         responseXML += `<id>Unauthorized</id>`;
         responseXML += `</response>`;
 
+        console.log(responseXML);
         return respondXML(request, response, 401, responseXML);
     }
     else {        
         responseXML += `<message>You have successfully viewed the content.</message>`;
         responseXML += `</response>`;
+
+        console.log(responseXML);
         return respondXML(request, response, 200, responseXML);
     }
 }
@@ -53,6 +59,7 @@ const forbidden = (request, response) => {
     responseXML += `<id>Forbidden</id>`;
     responseXML += `</response>`;
 
+    console.log(responseXML);
     return respondXML(request, response, 403, responseXML);
 }
 
@@ -62,6 +69,7 @@ const internal = (request, response) => {
     responseXML += `<id>Internal</id>`;
     responseXML += `</response>`;
 
+    console.log(responseXML);
     return respondXML(request, response, 500, responseXML);
 }
 
@@ -71,6 +79,7 @@ const notImplemented = (request, response) => {
     responseXML += `<id>Not Implemented</id>`;
     responseXML += `</response>`;
 
+    console.log(responseXML);
     return respondXML(request, response, 501, responseXML);
 }
 
@@ -80,7 +89,7 @@ const notFound = (request, response) => {
     responseXML += `<id>Not Found</id>`;
     responseXML += `</response>`;
 
-    // return our json with a 404 not found error code
+    console.log(responseXML);
     respondXML(request, response, 404, responseXML);
 };
 
