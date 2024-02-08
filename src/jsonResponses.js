@@ -9,7 +9,7 @@ const success = (request, response) => {
         message: 'This is a successful response.'
     };
 
-    console.log(responseJSON.stringify);
+
     respondJSON(request, response, 200, responseJSON);
 };
 
@@ -22,11 +22,11 @@ const badRequest = (request, response, params) => {
         responseJSON.message = 'Missing valid query parameter set to true.';
         responseJSON.id = 'Bad Request';
 
-        console.log(responseJSON.stringify);
+
         return respondJSON(request, response, 400, responseJSON);
     }
 
-    console.log(responseJSON.stringify);
+
     return respondJSON(request, response, 200, responseJSON);
 };
 
@@ -39,11 +39,11 @@ const unauthorized = (request, response, params) => {
         responseJSON.message = 'Missing loggedIn query parameter set to true.';
         responseJSON.id = 'Unauthorized';
 
-        console.log(responseJSON.stringify);
+
         return respondJSON(request, response, 401, responseJSON);
     }
 
-    console.log(responseJSON.stringify);
+
     return respondJSON(request, response, 200, responseJSON);
 }
 
@@ -53,7 +53,7 @@ const forbidden = (request, response) => {
         id: 'Forbidden',
     };
 
-    console.log(responseJSON.stringify);
+
     return respondJSON(request, response, 403, responseJSON);
 }
 
@@ -63,7 +63,7 @@ const internal = (request, response) => {
         id: 'Internal',
     };
 
-    console.log(responseJSON.stringify);
+
     return respondJSON(request, response, 500, responseJSON);
 }
 
@@ -73,7 +73,7 @@ const notImplemented = (request, response) => {
         id: 'Not Implemented',
     };
 
-    console.log(responseJSON.stringify);
+
     return respondJSON(request, response, 501, responseJSON);
 }
 
@@ -83,7 +83,7 @@ const notFound = (request, response) => {
         id: 'Not Found',
     };
 
-    console.log(responseJSON.stringify);
+
     respondJSON(request, response, 404, responseJSON);
 };
 

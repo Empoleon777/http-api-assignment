@@ -84,31 +84,24 @@
       switch (response.status) {
         case 200:
           content.innerHTML = `<b>Success</b>`;
-          content.innerHTML += `<p>Message: This is a successful response.</p>`;
           break;
         case 400:
           content.innerHTML = `<b>Bad Request</b>`;
-          content.innerHTML += `<p>Message: Missing valid query parameter set to true.</p>`;
           break;
         case 401:
           content.innerHTML = `<b>Unauthorized</b>`;
-          content.innerHTML += `<p>Message: Missing loggedIn query parameter set to yes.</p>`;
           break;
         case 403:
           content.innerHTML = `<b>Forbidden</sb>`;
-          content.innerHTML += `<p>Message: You do not have access to this content.</p>`;
           break;
         case 500:
           content.innerHTML = `<b>Internal Server Error</b>`;
-          content.innerHTML += `<p>Message: Internal Server Error. Something went wrong.</p>`;
           break;
         case 501:
           content.innerHTML = `<b>Not Implemented</b>`;
-          content.innerHTML += `<p>Message: A get request for this page has not been implemented yet. Check again later for updated content.</p>`;
           break;
         case 404:
           content.innerHTML = `<b>Not Found</b>`;
-          content.innerHTML += `<p>Message: The page you are looking for was not found.</p>`;
           break;
         default:
           break;
@@ -116,6 +109,7 @@
 
       let resObj = await response.json();
       content.innerHTML += `<p>${resObj.message}</p>`;
+      console.log(resObj);
     };
   </script>
 </head>

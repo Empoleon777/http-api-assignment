@@ -25,7 +25,11 @@ const onRequest = (request, response) => {
     const acceptedType = request.headers.accept.split(',')[0];
 
     if (urlStruct[parsedURL.pathname]) {
-        if (urlStruct[parsedURL.pathname][acceptedType]) {
+        if (urlStruct[parsedURL.pathname]['text/html'] || urlStruct[parsedURL.pathname]['text/css']) {
+            const contentType = Object.keys(urlStruct[parsedURL.pathname])[0];
+            urlStruct[parsedURL.pathname][contentType](request, response, params);
+        } 
+        else if (urlStruct[parsedURL.pathname][acceptedType]) {
             urlStruct[parsedURL.pathname][acceptedType](request, response, params);
         }
         else {
