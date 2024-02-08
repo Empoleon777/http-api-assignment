@@ -22,11 +22,23 @@ const urlStruct = {
 const onRequest = (request, response) => {
     const parsedURL = url.parse(request.url);
     const params = query.parse(parsedURL.query);
+    const acceptedType = request.headers.accept.split(',')[0];
 
     if (urlStruct[parsedURL.pathname]) {
-        urlStruct[parsedURL.pathname](request, response, params);
-    } else {
-        urlStruct.notFound(request, response, params);
+        if (urlStruct[parsedURL.pathname][acceptedType]) {
+            urlStruct[parsedURL.pathname][acceptedType](request, response, params);
+        }
+        else {
+            urlStruct[parsedURL.pathname]['application/json'](request, response, params); //Default
+        }
+    }
+    else {
+        if (acceptedType === 'text/xml') {
+            urlStruct.notFound['text/xml'](request, response, params);
+        }
+        else {
+            urlStruct.notFound['application/json'](request, response, params); //Default
+        }
     }
 };
 

@@ -6,11 +6,16 @@
   <link rel="stylesheet" type="text/css" href="/style.css">
 
   <script>
+    let pageSelector = document.querySelector("#page");
+    let fileTypeSelector = document.querySelector("#type");
+    let sendButton = document.querySelector("#send");
+    let content = document.querySelector("#content");
+
     const init = () => {
-      const pageSelector = document.querySelector("#page");
-      const fileTypeSelector = document.querySelector("#type");
-      const sendButton = document.querySelector("#send");
-      const content = document.querySelector("#content");
+      pageSelector = document.querySelector("#page");
+      fileTypeSelector = document.querySelector("#type");
+      sendButton = document.querySelector("#send");
+      content = document.querySelector("#content");
 
       const success = () => sendFetch('/success');
       const badRequest = () => sendFetch('/badRequest');
