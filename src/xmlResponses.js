@@ -29,7 +29,7 @@ const badRequest = (request, response, params) => {
   return respondXML(request, response, 200, responseXML);
 };
 
-const unauthorized = (request, response) => {
+const unauthorized = (request, response, params) => {
   let responseXML = '<response>';
 
   if (!params.valid || params.valid !== 'true') {
