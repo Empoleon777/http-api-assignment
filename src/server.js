@@ -8,8 +8,8 @@ const xmlHandler = require('./xmlResponses.js');
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
 const urlStruct = {
-    '/': htmlHandler.getIndex,
-    '/style.css': htmlHandler.getCSS,
+    '/': { 'text/html': htmlHandler.getIndex },
+    '/style.css': { 'text/css': htmlHandler.getCSS },
     '/success': { 'application/json': jsonHandler.success, 'text/xml': xmlHandler.success },
     '/badRequest': { 'application/json': jsonHandler.badRequest, 'text/xml': xmlHandler.badRequest },
     '/unauthorized': { 'application/json': jsonHandler.unauthorized, 'text/xml': xmlHandler.unauthorized },
