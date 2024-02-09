@@ -94,9 +94,20 @@
           break;
       }
 
-      let resObj = await response.json();
-      content.innerHTML += `<p>${resObj.message}</p>`;
-      console.log(resObj);
+      const contentType = response.headers.get('Content-Type');
+      let resObj;
+
+      if (contentType === 'application/json') {
+        resObj = await response.json();
+        content.innerHTML += `<p>${resObj.message}</p>`;
+        console.log(resObj);
+      }
+      else if (contentType === 'text/xml') {
+        resObj = await response.text();
+        const parsedResponse = new window.DOMParser().parseFromString(resObj, 'text/xml');
+        content.innerHTML += `<p>${parsedResponse.querySelector('message').textContent}</p>`;
+        console.log(resObj);
+      }
     };
   </script>
 </head>
