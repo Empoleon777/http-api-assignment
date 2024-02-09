@@ -28,29 +28,7 @@
       fileTypeSelector.addEventListener("change", changeFileType);
 
       sendButton.addEventListener("click", () => {
-        switch (pageSelector.value) {
-          case "/success":
-            success();
-            break;
-          case "/badRequest":
-            badRequest();
-            break;
-          case "/unauthorized":
-            unauthorized();
-            break;
-          case "/forbidden":
-            forbidden();
-            break;
-          case "/internal":
-            internal();
-            break;
-          case "/notImplemented":
-            notImplemented();
-            break;
-          case "/notFound":
-            notFound();
-            break;
-        }
+        sendFetch(pageSelector.value, fileTypeSelector.value);
       });
     }
 
@@ -75,8 +53,17 @@
       handleResponse(response);
     }
 
-    const sendFetch = async (url) => {
-      let response = await fetch(url);
+    const sendFetch = async (url, fileType) => {
+      let headers = {};
+      if (fileType) {
+        headers = {
+          'Accept': fileType
+        }
+      }
+
+      let response = await fetch(url, {
+        headers: headers
+      });
       handleResponse(response);
     };
 

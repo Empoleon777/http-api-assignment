@@ -28,14 +28,18 @@ const onRequest = (request, response) => {
     if (urlStruct[parsedURL.pathname]['text/html'] || urlStruct[parsedURL.pathname]['text/css']) {
       const contentType = Object.keys(urlStruct[parsedURL.pathname])[0];
       urlStruct[parsedURL.pathname][contentType](request, response, params);
-    } else if (urlStruct[parsedURL.pathname][acceptedType]) {
+    }
+    else if (urlStruct[parsedURL.pathname][acceptedType]) {
       urlStruct[parsedURL.pathname][acceptedType](request, response, params);
-    } else {
+    }
+    else {
       urlStruct[parsedURL.pathname]['application/json'](request, response, params); // Default
     }
-  } else if (acceptedType === 'text/xml') {
+  }
+  else if (acceptedType === 'text/xml') {
     urlStruct.notFound['text/xml'](request, response, params);
-  } else {
+  }
+  else {
     urlStruct.notFound['application/json'](request, response, params); // Default
   }
 };
